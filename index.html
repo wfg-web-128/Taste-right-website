@@ -131,25 +131,25 @@
   .service h3{ font-size:20px; margin-bottom:12px; }
   .service p{ color: var(--brown-soft); font-size:14.5px; }
 
-  /* ---------- SCROLLING REVIEWS MARQUEE ---------- */
+  /* ---------- GOOGLE REVIEW CTA ---------- */
   .reviews{ background: var(--brown); padding: 80px 0 90px; overflow: hidden; }
-  .reviews-head{ text-align:center; margin-bottom: 46px; }
+  .reviews-head{ text-align:center; margin-bottom: 40px; }
   .reviews-head p.eyebrow{ color: var(--olive); font-weight:700; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:12px; }
   .reviews-head h2{ color: var(--cream); font-size: 32px; }
-  .marquee-track{ display:flex; gap: 22px; width: max-content; animation: scrollLeft 38s linear infinite; }
-  .marquee-track:hover{ animation-play-state: paused; }
-  @keyframes scrollLeft{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
-  .review-card{
+  .review-cta-wrap{ text-align:center; }
+  .review-cta{
+    display:inline-flex; align-items:center; gap:14px;
     background: #362A20; color: var(--cream);
-    width: 320px; flex-shrink:0;
-    padding: 26px 24px;
-    border-left: 3px solid var(--rust);
+    border: 1px solid rgba(245,241,232,0.18);
+    padding: 20px 30px;
+    text-decoration:none;
+    transition: transform .2s ease, border-color .2s ease;
   }
-  .review-card .stars{ color: var(--olive); font-size:14px; margin-bottom:14px; letter-spacing:2px; }
-  .review-card p.quote{ font-size:14.5px; color: rgba(245,241,232,0.85); margin-bottom:18px; font-style:italic; }
-  .review-card p.name{ font-weight:700; font-size:13.5px; }
-  .review-card p.role{ font-size:12px; color: rgba(245,241,232,0.6); }
-  .review-note{ text-align:center; margin-top:30px; font-size:12.5px; color: rgba(245,241,232,0.5); }
+  .review-cta:hover{ transform: translateY(-3px); border-color: var(--rust); }
+  .review-cta-stars{ color: var(--olive); font-size:16px; letter-spacing:2px; }
+  .review-cta-text{ font-weight:600; font-size:15.5px; }
+  .review-cta-arrow{ color: var(--rust); font-size:16px; }
+  .review-note{ text-align:center; margin-top:22px; font-size:12.5px; color: rgba(245,241,232,0.5); max-width: 420px; margin-left:auto; margin-right:auto; }
 
   /* ---------- WHY INDEPENDENT ---------- */
   .why-section{ padding: 110px 0 90px; }
@@ -207,7 +207,6 @@
   [data-reveal].in{ opacity:1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce){
     [data-reveal]{ opacity:1; transform:none; }
-    .marquee-track{ animation: none; }
   }
 
   .section-watermark{
@@ -226,7 +225,7 @@
     position: relative;
     z-index: 1;
   }
-  .reviews > .marquee-track, .reviews > .review-note{ position: relative; z-index: 1; }
+  .reviews > .review-cta-wrap{ position: relative; z-index: 1; }
 
   @media (max-width: 900px){
     header.hero{ clip-path: polygon(0 0, 100% 0, 100% 96%, 0 100%); }
@@ -839,20 +838,17 @@
     </g>
 </svg>
   <div class="wrap reviews-head">
-    <p class="eyebrow">What it's like to work together</p>
-    <h2>Placeholder reviews: swap in real ones any time</h2>
+    <p class="eyebrow">Reviews</p>
+    <h2>Be one of the first to leave a review</h2>
   </div>
-  <div class="marquee-track" id="marqueeTrack">
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
-    <div class="review-card"><div class="stars">★★★★★</div><p class="quote">"[Add a real client quote here.]"</p><p class="name">Client name</p><p class="role">Founder, brand name</p></div>
+  <div class="review-cta-wrap">
+    <a class="review-cta" href="https://g.page/r/Cf032nbSmH_yEBM/review" target="_blank" rel="noopener">
+      <span class="review-cta-stars">★★★★★</span>
+      <span class="review-cta-text">Leave Taste Right a review on Google</span>
+      <span class="review-cta-arrow">→</span>
+    </a>
+    <p class="review-note">Worked with Taste Right? A quick review helps other drinks brands find their way here.</p>
   </div>
-  <p class="review-note">Hover to pause · these are placeholders until real reviews come in</p>
 </section>
 
 <section class="why-section">
@@ -1181,11 +1177,6 @@
     }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-
-  const track = document.getElementById('marqueeTrack');
-  track.addEventListener('click', () => {
-    track.style.animationPlayState = track.style.animationPlayState === 'paused' ? 'running' : 'paused';
-  });
 </script>
 
 </body>

@@ -81,7 +81,7 @@
   a{ color:inherit; }
 
   .logo-mark{ display:inline-flex; align-items:center; gap:12px; }
-  .logo-mark svg{ width:30px; height:30px; }
+  .logo-mark svg, .logo-mark img{ width:30px; height:30px; object-fit: contain; }
   .logo-text{ font-family:'Poppins'; font-weight:700; font-size:19px; letter-spacing:0.02em; }
 
   nav{ position:sticky; top:0; z-index:60; background: rgba(247,239,226,0.9); backdrop-filter: blur(8px); }
@@ -131,14 +131,35 @@
   .hero-photo-box{
     position: relative;
     width: 100%;
-    max-width: 360px;
-    aspect-ratio: 4 / 5;
+    max-width: 420px;
+    aspect-ratio: 4 / 3;
     margin-left: auto;
-    margin-top: -60px;
-    box-shadow: 0 34px 60px rgba(0,0,0,0.4), 0 10px 24px rgba(0,0,0,0.28);
+    margin-top: -40px;
+    margin-right: 18px;
+    border: 8px solid var(--cream);
+    outline: 1px solid rgba(35,26,20,0.15);
+    outline-offset: -1px;
+    box-shadow: 0 40px 70px rgba(0,0,0,0.45), 0 14px 28px rgba(0,0,0,0.3);
     background: var(--brown);
     overflow: hidden;
+    transform: rotate(-2deg);
     z-index: 3;
+  }
+  .hero-photo-box::before{
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border: 1px solid rgba(245,241,232,0.4);
+    z-index: -1;
+    pointer-events: none;
+  }
+  .hero-photo-box::after{
+    content: "";
+    position: absolute;
+    top: 22px; left: -18px; right: -18px; bottom: -18px;
+    background: var(--rust-deep);
+    transform: rotate(3deg);
+    z-index: -2;
   }
   .hero-photo-box img{
     position: absolute; inset: 0;
@@ -149,7 +170,7 @@
   .hero-photo-box img.active{ opacity: 1; }
   @media (max-width: 880px){
     .hero-inner .wrap{ grid-template-columns: 1fr; }
-    .hero-photo-box{ max-width: 340px; margin: 40px auto 0; }
+    .hero-photo-box{ max-width: 360px; margin: 50px auto 20px; transform: rotate(-1.5deg); }
   }
   .cta-row{ display:flex; gap: 16px; align-items:center; flex-wrap: wrap; }
   .btn-primary{ display:inline-flex; align-items:center; gap:10px; background: var(--white); color: var(--rust-deep); text-decoration:none; padding:15px 26px; font-weight:700; font-size:15px; }
@@ -219,10 +240,7 @@
   .insight-read{ font-size:13.5px; font-weight:600; color: var(--brown); }
 
   /* ---------- ROLLING PHOTO GALLERY ---------- */
-  .gallery{ background: var(--cream-2); padding: 80px 0 70px; overflow: hidden; }
-  .gallery-head{ text-align:center; margin-bottom: 40px; }
-  .gallery-head p.eyebrow{ color: var(--rust-deep); font-weight:700; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:12px; }
-  .gallery-head h2{ font-size: 32px; color: var(--brown); }
+  .gallery{ background: var(--cream-2); padding: 50px 0 50px; overflow: hidden; }
   .gallery-track{ display:flex; gap: 18px; width: max-content; animation: galleryScroll 60s linear infinite; padding: 0 40px; }
   .gallery-track:hover{ animation-play-state: paused; }
   @keyframes galleryScroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
@@ -363,11 +381,7 @@
 <nav>
   <div class="wrap">
     <div class="logo-mark">
-      <svg viewBox="0 0 40 40">
-        <rect x="2" y="2" width="36" height="36" rx="9" fill="#E09B6D"/>
-        <path d="M20 9c4.4 5.7 7.4 9.7 7.4 13.4a7.4 7.4 0 1 1-14.8 0c0-3.7 3-7.7 7.4-13.4z" fill="#231A14"/>
-        <path d="M14.8 21.8l3.4 3.4 6.8-8.2" stroke="#E09B6D" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <img src="logo-icon.png" alt="Taste Right Technical Consulting logo">
       <span class="logo-text">TRTC</span>
     </div>
     <ul>
@@ -692,11 +706,7 @@
     <div class="wrap">
       <div class="hero-text">
         <div class="logo-mark">
-          <svg viewBox="0 0 40 40">
-            <rect x="2" y="2" width="36" height="36" rx="9" fill="#F5F1E8"/>
-            <path d="M20 9c4.4 5.7 7.4 9.7 7.4 13.4a7.4 7.4 0 1 1-14.8 0c0-3.7 3-7.7 7.4-13.4z" fill="#231A14"/>
-            <path d="M14.8 21.8l3.4 3.4 6.8-8.2" stroke="#F5F1E8" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img src="logo-icon.png" alt="Taste Right Technical Consulting logo">
           <span class="logo-text">Taste Right Technical Consulting</span>
         </div>
         <p class="hero-eyebrow">Independent drinks consulting · London &amp; UK</p>
@@ -921,10 +931,6 @@
 </section>
 
 <section class="gallery">
-  <div class="wrap gallery-head">
-    <p class="eyebrow">A closer look</p>
-    <h2>Cans, bottles and the ingredients in between</h2>
-  </div>
   <div class="gallery-track" id="galleryTrack">
   </div>
   <p class="gallery-note">Hover to pause</p>
@@ -1281,11 +1287,7 @@
   <div class="wrap">
     <div class="footer-top">
       <div class="logo-mark">
-        <svg viewBox="0 0 40 40">
-          <rect x="2" y="2" width="36" height="36" rx="9" fill="#F5F1E8"/>
-          <path d="M20 9c4.4 5.7 7.4 9.7 7.4 13.4a7.4 7.4 0 1 1-14.8 0c0-3.7 3-7.7 7.4-13.4z" fill="#231A14"/>
-          <path d="M14.8 21.8l3.4 3.4 6.8-8.2" stroke="#F5F1E8" stroke-width="2.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img src="logo-icon.png" alt="Taste Right Technical Consulting logo">
         <span class="logo-text">TRTC</span>
       </div>
     </div>

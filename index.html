@@ -238,20 +238,28 @@
   .service h3{ font-size:20px; margin-bottom:12px; }
   .service p{ color: var(--brown-soft); font-size:14.5px; }
 
-  /* ---------- INSIGHTS ---------- */
-  .insights{ padding: 100px 0 90px; }
-  .insights-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  /* ---------- INSIGHTS (rolling track) ---------- */
+  .insights{ padding: 100px 0 70px; overflow: hidden; }
+  .insights-track-wrap{ overflow: hidden; }
+  .insights-track{ display:flex; gap: 22px; width: max-content; animation: insightsScroll 75s linear infinite; padding: 4px 40px 10px; }
+  .insights-track:hover{ animation-play-state: paused; }
+  @keyframes insightsScroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
   .insight-card{
-    display:block; background: var(--white); padding: 32px 28px;
+    display:block; background: var(--white); padding: 30px 26px;
     text-decoration:none; color: var(--brown);
     border: 1px solid var(--line);
+    width: 320px; flex-shrink:0;
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .insight-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 34px rgba(51,42,32,0.12); }
   .insight-tag{ display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color: var(--rust-deep); margin-bottom:16px; }
-  .insight-card h3{ font-size:19px; margin-bottom:12px; line-height:1.3; }
-  .insight-card p{ color: var(--brown-soft); font-size:14px; margin-bottom:18px; }
+  .insight-card h3{ font-size:18px; margin-bottom:12px; line-height:1.3; min-height:47px; }
+  .insight-card p{
+    color: var(--brown-soft); font-size:14px; margin-bottom:18px;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .insight-read{ font-size:13.5px; font-weight:600; color: var(--brown); }
+  .insights-note{ text-align:center; margin-top:6px; font-size:12.5px; color: var(--brown-soft); }
 
   /* ---------- ROLLING PHOTO GALLERY ---------- */
   .gallery{ background: var(--cream-2); padding: 50px 0 50px; overflow: hidden; }
@@ -361,6 +369,7 @@
   @media (prefers-reduced-motion: reduce){
     [data-reveal]{ opacity:1; transform:none; }
     .gallery-track{ animation: none; }
+    .insights-track{ animation: none; }
   }
 
   .section-watermark{
@@ -390,7 +399,7 @@
     .track, .track:nth-child(2){ transform:none; }
     .services{ grid-template-columns:1fr; }
     .service, .service:nth-child(2), .service:nth-child(3), .service:nth-child(4){ transform:none; }
-    .insights-grid{ grid-template-columns:1fr; }
+    .insights-track{ padding: 4px 20px 10px; }
     .why{ grid-template-columns:1fr; }
     .steps{ grid-template-columns: 1fr 1fr; }
     .footer-grid{ grid-template-columns:1fr; }
@@ -932,33 +941,12 @@
       </div>
       <p></p>
     </div>
-    <div class="insights-grid">
-      <a class="insight-card" href="finding-the-right-co-packer.html" data-reveal>
-        <span class="insight-tag">For new brands</span>
-        <h3>How to find the right co-packer in London and the UK</h3>
-        <p>What actually matters when choosing a canner, bottler or co-packer, and the questions most founders forget to ask.</p>
-        <span class="insight-read">Read the article →</span>
-      </a>
-      <a class="insight-card" href="signs-your-production-partner-is-letting-you-down.html" data-reveal>
-        <span class="insight-tag">For established brands</span>
-        <h3>5 signs your production partner is letting you down</h3>
-        <p>The warning signs worth acting on before a bad batch, a missed deadline, or a quality slip becomes a habit.</p>
-        <span class="insight-read">Read the article →</span>
-      </a>
-      <a class="insight-card" href="what-does-a-drinks-technical-consultant-do.html" data-reveal>
-        <span class="insight-tag">Getting started</span>
-        <h3>What does a drinks technical consultant actually do?</h3>
-        <p>A plain-English explanation of the role, for anyone who has never worked with one before.</p>
-        <span class="insight-read">Read the article →</span>
-      </a>
+  </div>
+  <div class="insights-track-wrap">
+    <div class="insights-track" id="insightsTrack">
     </div>
   </div>
-</section>
-
-<section class="gallery">
-  <div class="gallery-track" id="galleryTrack">
-  </div>
-  <p class="gallery-note">Hover to pause</p>
+  <p class="insights-note">Hover to pause</p>
 </section>
 
 <section class="reviews" id="reviews">
@@ -1040,6 +1028,12 @@
     </a>
     <p class="review-note">Worked with Taste Right? A quick review helps other drinks brands find their way here.</p>
   </div>
+</section>
+
+<section class="gallery">
+  <div class="gallery-track" id="galleryTrack">
+  </div>
+  <p class="gallery-note">Hover to pause</p>
 </section>
 
 <section class="why-section">
@@ -1435,6 +1429,39 @@
       galleryTrack.style.animationPlayState = galleryTrack.style.animationPlayState === 'paused' ? 'running' : 'paused';
     });
   }
+
+  // ---- Insights articles. Add or remove an entry here to update the rolling
+  // insights strip below. 'tag' is the small label shown above the title. ----
+  const INSIGHTS = [
+    { tag: "For new brands", title: "How to find the right co-packer in London and the UK", desc: "What actually matters when choosing a canner, bottler or co-packer, and the questions most founders forget to ask.", href: "finding-the-right-co-packer.html" },
+    { tag: "For established brands", title: "5 signs your production partner is letting you down", desc: "The warning signs worth acting on before a bad batch, a missed deadline, or a quality slip becomes a habit.", href: "signs-your-production-partner-is-letting-you-down.html" },
+    { tag: "Getting started", title: "What does a drinks technical consultant actually do?", desc: "A plain-English explanation of the role, for anyone who has never worked with one before.", href: "what-does-a-drinks-technical-consultant-do.html" },
+    { tag: "For new brands", title: "How to start a drinks brand in the UK", desc: "A practical starting sequence, from market research to your first production run, for founders who have never done this before.", href: "how-to-start-a-drinks-brand-in-the-uk.html" },
+    { tag: "How we work", title: "Taste Right runs your production, so you can focus on what you do best", desc: "What it actually looks like to hand the co-packer relationship over to an independent consultant.", href: "letting-taste-right-manage-your-production.html" },
+    { tag: "For established brands", title: "Why you need independent QC at your co-packer", desc: "Why relying on a co-packer's own quality checks isn't the same as having someone represent your brand.", href: "why-you-need-independent-qc-at-your-co-packer.html" },
+    { tag: "Troubleshooting", title: "Why does my drink taste different every batch?", desc: "The most common causes of batch-to-batch inconsistency, and how to work out whether it's the recipe, the process, or the partner.", href: "why-does-my-drink-taste-different-every-batch.html" },
+    { tag: "Product development", title: "How to develop a functional drink that actually works", desc: "What separates a functional drink that builds repeat customers from one that gets tried once and never bought again.", href: "how-to-develop-a-functional-drink-that-works.html" },
+    { tag: "Industry trends", title: "What GLP-1 medications mean for drinks brands right now", desc: "Weight-loss medications are changing how much and how often people drink, and what that means for formulation.", href: "formulating-drinks-for-glp1-users.html" },
+    { tag: "Industry trends", title: "Launching a low or no-alcohol drink in the UK: what's actually changed", desc: "The category has gone mainstream, and the bar for a first product is much higher than it was a couple of years ago.", href: "launching-a-low-or-no-alcohol-drink-in-the-uk.html" }
+  ];
+
+  // Populate rolling insights strip (articles listed twice back-to-back for a seamless loop)
+  const insightsTrackEl = document.getElementById('insightsTrack');
+  if (insightsTrackEl) {
+    for (let loop = 0; loop < 2; loop++) {
+      INSIGHTS.forEach(item => {
+        const card = document.createElement('a');
+        card.className = 'insight-card';
+        card.href = item.href;
+        card.innerHTML = `<span class="insight-tag">${item.tag}</span>
+          <h3>${item.title}</h3>
+          <p>${item.desc}</p>
+          <span class="insight-read">Read the article →</span>`;
+        insightsTrackEl.appendChild(card);
+      });
+    }
+  }
+
 
   const heroPhotoBox = document.getElementById('heroPhotoBox');
   if (heroPhotoBox && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
